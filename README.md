@@ -1,4 +1,5 @@
 # PfamClassification
+Here I explain some of the thought process that I couldn't include in the jupyter notebooks provided relating to the task of protein family (Pfam) classification. Have fun :)
 
 # Goal
 Build a classifier that assigns a protein to the corresponding Pfam (Bateman et al., 2004, i.e., protein family). The point is that we would like to be able to predict the protein family and potential function of an unknown protein domain. This can be very beneficial for applications such as protein engineering and drug discovery.
@@ -38,9 +39,9 @@ Please, see model.py and resnet_block.py, trained in pfam-model-training.ipynb i
 The model was inspired by ProtCNN (Bileschi et al., 2019, 10.1038/s41587-021-01179-w), which achieves 0.495% error rate on the Pfam seed dataset. Due to the limited compute power, I chose to make it shallower with only a a single Conv1d(1x1) and a single ResNet block, followed by a pooling and a dense layer. In addition, the length of the sequences I used for training was limited (to 308) in order to further limit the the size of the model and dataset. Obviously, this means that my model may only give predictions that would possibly be within the achieved accuracy for the test and validation sets if the query sequence is no longer that 308 amino acids.
 
 # Analysis
-Please, take a look at analysis_and_experiments.ipynb for the analysis I have conducted on the trained model.
+Please, take a look at analysis_and_experiments.ipynb for the analysis I have conducted on the trained model. I have included comments and explanations there.
 
-Since it does not outperform phmmer, BLASTp or ProtCNN (with error rates: 1.414%, 1.513% and 0.495%, respectively, as reported by Bileschi et al.), I have not conducted further experiments with them. Instead, I mostly compared to a baseline that was a dummy classifier that predict the sequence to belong to the Pfam corresponding to the Pfam of the closest sequence in terms of sequence identity from the training set.
+Since it does not outperform phmmer, BLASTp or ProtCNN (with error rates: 1.414%, 1.513% and 0.495%, respectively, as reported by Bileschi et al.), I have not conducted further experiments with them. Instead, I mostly compared to a baseline that was a dummy classifier that predict the sequence to belong to the Pfam corresponding to the Pfam of the closest sequence in terms of sequence identity from the training set. Further work in terms of explainability would be very interesting to conduct, too.
 
 # Reproduction
 The Python=3.10.0 environment that I used is also included. For the data, the provided jupyter notebooks should be enough in order to reproduce the data starting from https://www.kaggle.com/datasets/googleai/pfam-seed-random-split?resource=download
