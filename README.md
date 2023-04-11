@@ -66,4 +66,4 @@ Since it does not outperform phmmer, BLASTp or ProtCNN (with error rates: 1.414%
 # Reproduction
 The Python=3.10.0 environment that I used is also included. For the data, the provided jupyter notebooks should be enough in order to reproduce the data starting from https://www.kaggle.com/datasets/googleai/pfam-seed-random-split?resource=download
 
-However, I will try to provide the trained model and sparse data ASAP upon request.
+However, I will try to provide the trained model and sparse data ASAP upon request. Shared a OneDrive link with Robert :) 
