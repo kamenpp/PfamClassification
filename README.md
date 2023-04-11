@@ -10,6 +10,24 @@ The point is that we would like to be able to predict this from sequence data, i
 The Pfam seed random split dataset: https://www.kaggle.com/googleai/pfam-seed-random-split
 It contains sequences of protein domains and their corresponding protein families. In addition, it contains the multiple sequence alignment for each domain. In total there are 17,929 protein families in Pfam v.32.0.
 
+Description of fields:
+
+ -- sequence: These are usually the input features to your model. Amino acid sequence for this domain.
+There are 20 very common amino acids (frequency > 1,000,000), and 4 amino acids that are quite 
+uncommon: X, U, B, O, Z. In my case, I one-hot encode those, and for the very uncommon ones, I just use zero vectors.
+
+ -- family_accession: These are usually the labels for your model. Accession number in form PFxxxxx.y 
+(Pfam), where xxxxx is the family accession, and y is the version number. 
+Some values of y are greater than ten, and so 'y' has two digits.
+
+ -- family_id: One word name for family.
+ 
+ -- sequence_name: Sequence name, in the form "$uniprot_accession_id/$start_index-$end_index".
+
+ -- aligned_sequence: Contains a single sequence from the multiple sequence alignment (with the rest of the members of 
+the family in seed, with gaps retained.
+
+
 Exploration of the data with some further comments, visualisations and (some of) my thought process is in explore_data.ipynb. Please, feel free to take a look.
 
 # Approach
@@ -37,6 +55,8 @@ Thus, the approach that I have followed in my implementation follows that in Pro
 Please, see model.py and resnet_block.py, trained in pfam-model-training.ipynb in a Kaggle environment, in order to use the GPU P100 acceleration for training. Hyperparameters for the model and training are in hparams.json.
 
 The model was inspired by ProtCNN (Bileschi et al., 2019, 10.1038/s41587-021-01179-w), which achieves 0.495% error rate on the Pfam seed dataset. Due to the limited compute power, I chose to make it shallower with only a a single Conv1d(1x1) and a single ResNet block, followed by a pooling and a dense layer. In addition, the length of the sequences I used for training was limited (to 308) in order to further limit the the size of the model and dataset. Obviously, this means that my model may only give predictions that would possibly be within the achieved accuracy for the test and validation sets if the query sequence is no longer that 308 amino acids.
+
+The training set was used for training the model, and dev/validation was used for model validation (how it is doing on unseen data from the same distribution), The tet set was used in analysis and testing.
 
 # Analysis
 Please, take a look at analysis_and_experiments.ipynb for the analysis I have conducted on the trained model. I have included comments and explanations there.
