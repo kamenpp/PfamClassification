@@ -56,7 +56,7 @@ Please, see model.py and resnet_block.py, trained in pfam-model-training.ipynb i
 
 The model was inspired by ProtCNN (Bileschi et al., 2019, 10.1038/s41587-021-01179-w), which achieves 0.495% error rate on the Pfam seed dataset. Due to the limited compute power, I chose to make it shallower with only a a single Conv1d(1x1) and a single ResNet block, followed by a pooling and a dense layer. In addition, the length of the sequences I used for training was limited (to 308) in order to further limit the the size of the model and dataset. Obviously, this means that my model may only give predictions that would possibly be within the achieved accuracy for the test and validation sets if the query sequence is no longer that 308 amino acids.
 
-The training set was used for training the model, and dev/validation was used for model validation (how it is doing on unseen data from the same distribution), The tet set was used in analysis and testing.
+The training set was used for training the model, and dev/validation was used for model validation (how it is doing on unseen data from the same distribution), The tet set was used in analysis and testing. The model has 24.8 million parameters.
 
 # Analysis
 Please, take a look at analysis_and_experiments.ipynb for the analysis I have conducted on the trained model. I have included comments and explanations there.
