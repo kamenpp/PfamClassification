@@ -69,6 +69,8 @@ In the ML application lifecycle, this is project is a proof-of-concept, hence, t
 
 0) Is the current training data exemplary enough of the problem we are trying to solve? Is there a way to augment it, clean it, etc. so that it is more aligned with our goal? 
 
+0.1) If the data is significantly different from what has been tried out in the literature (such as proprietary data, etc.), it would be good to evaluate the performance, of other simpler, more robust model, perhaps like kNN or Naive Bayes.
+
 1) Stratify the split between training, dev and test datasets based on maximum percent sequence identity.
 
 2) Debias the model. In my case, I did not weigh the loss function, oversample the underrepresented classes or undersample the underrepresented classes. This would be a necessary step as we do not want to it to be biased towards predicting the overrepresented classes. Weighing the loss function by 1/num_samples for each class could be a good starting point.
