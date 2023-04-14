@@ -63,7 +63,37 @@ Please, take a look at analysis_and_experiments.ipynb for the analysis I have co
 
 Since it does not outperform phmmer, BLASTp or ProtCNN (with error rates: 1.414%, 1.513% and 0.495%, respectively, as reported by Bileschi et al.), I have not conducted further experiments with them. Instead, I mostly compared to a baseline that was a dummy classifier that predict the sequence to belong to the Pfam corresponding to the Pfam of the closest sequence in terms of sequence identity from the training set. Further work in terms of explainability would be very interesting to conduct, too.
 
-# Reproduction
+# Outlook & Further Steps
+
+In the ML application lifecycle, this is project is a proof-of-concept, hence, there are many more steps that could follow. Since our aim is to predict the function of any protein sequence, all of the next steps will have to stem from this object. For example:
+
+0) Is the current training data exemplary enough of the problem we are trying to solve? Is there a way to augment it, clean it, etc. so that it is more aligned with our goal? 
+
+1) Stratify the split between training, dev and test datasets based on maximum percent sequence identity.
+
+2) Debias the model. In my case, I did not weigh the loss function, oversample the underrepresented classes or undersample the underrepresented classes. This would be a necessary step as we do not want to it to be biased towards predicting the overrepresented classes. Weighing the loss function by 1/num_samples for each class could be a good starting point.
+
+3) More appropriate metrics. When dealing with a large number of output classes (more than 1600 in this case, more than 17000 for all Pfams), standard evaluation metrics such as accuracy, precision, recall, AUPRC, AUROC and F1 score (which should also be considered) can become less informative due to class imbalance and the sheer number of classes. In this case, it is important to consider additional evaluation metrics and techniques that are tailored to the specific use case and problem at hand.
+
+The metrics like accuracy, precision, recall, AUPRC, AUROC and F1 score are difficult to consider on a per class basis. However, they can be calculated for each class, and in the analysis we can perhaps focus on the outliers for those metrics.
+
+One common approach is to use a hierarchical classification scheme to group the classes into a hierarchical structure based on their similarities or relationships. This can help to reduce the number of classes that need to be considered at once and can make it easier to interpret the results.
+
+Another approach is to use top-k accuracy, where the model is considered to have made a correct prediction if the true label is in the top-k predicted labels. This metric is useful when the correct label may not be the most probable one and allows for some flexibility in the prediction.
+
+Precision at k (P@k) is a metric that measures the proportion of correctly predicted classes among the top-k predicted classes. This metric can be useful when the correct label is not necessarily the most probable one, but it is important that it is included in the top-k predictions.
+
+Mean Average Precision (MAP) is a metric that takes into account the average precision of each class and weights them based on their relative importance. This metric is useful when the classes have different levels of importance or when some classes are more difficult to predict than others.
+
+4) Explainability. In order to further identify biases that might have been captured by the model, I would investigate further what the model learnt with something like CAM (Class Activation Map), and understand if there are misclassifications that occur commonly and why. Are there certain Pfams that we often get wrong, is there a subsequence we can identify that makes misclassifications more likely, etc.?
+
+5) Applicability Domain. Where can we trust the model, and where can we not? Essentially, an imperfect model that we could trust in certain situations is still not bad. In my case for example, I would have some trust in the model up to lengths of sequence of 308, but not above.
+
+6) Compare to SOTA models (like BLASTp and pHMMER). Expariment with different model sizes, and tune various hyperparameters. At the very end some form of ensemble learning to get the most out of the architecture.
+
+7) Iterate until satisfactory performance. Deploy and monitor.
+
+# Reproducibillity
 The Python=3.10.0 environment that I used is also included. For the data, the provided jupyter notebooks should be enough in order to reproduce the data starting from https://www.kaggle.com/datasets/googleai/pfam-seed-random-split?resource=download
 
 However, I will try to provide the trained model and sparse data ASAP upon request. Shared a OneDrive link with Robert :) 
