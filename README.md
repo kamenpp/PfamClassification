@@ -98,4 +98,4 @@ Mean Average Precision (MAP) is a metric that takes into account the average pre
 # Reproducibillity
 The Python=3.10.0 environment that I used is also included. For the data, the provided jupyter notebooks should be enough in order to reproduce the data starting from https://www.kaggle.com/datasets/googleai/pfam-seed-random-split?resource=download
 
-However, I will try to provide the trained model and sparse data ASAP upon request. Shared a OneDrive link with Robert :) 
+However, I will try to provide the trained model and sparse data ASAP upon request.
