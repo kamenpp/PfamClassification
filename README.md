@@ -1,6 +1,3 @@
-# PfamClassification
-Here I explain some of the thought process that I couldn't include in the jupyter notebooks provided relating to the task of protein family (Pfam) classification. Have fun :)
-
 # Goal
 Build a classifier that assigns a protein to the corresponding Pfam (Bateman et al., 2004, i.e., protein family). The point is that we would like to be able to predict the protein family and potential function of an unknown protein domain. This can be very beneficial for applications such as protein engineering and drug discovery.
 
@@ -97,5 +94,3 @@ Mean Average Precision (MAP) is a metric that takes into account the average pre
 
 # Reproducibillity
 The Python=3.10.0 environment that I used is also included. For the data, the provided jupyter notebooks should be enough in order to reproduce the data starting from https://www.kaggle.com/datasets/googleai/pfam-seed-random-split?resource=download
-
-However, I will try to provide the trained model and sparse data ASAP upon request.
